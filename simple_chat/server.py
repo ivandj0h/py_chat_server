@@ -2,6 +2,7 @@
 from socket import socket, AF_INET, SOCK_STREAM, SOL_SOCKET, SO_REUSEADDR
 import logging
 from concurrent.futures import ThreadPoolExecutor
+import datetime
 
 
 class ChatServer:
@@ -30,7 +31,11 @@ class ChatServer:
             data = conn.recv(4096)
 
             for connection in self.connections:
-                connection.send(data)
+                a = str(addr[0] + " | ").encode("utf-8")
+                now = datetime.datetime.now().strftime("%Y-%m-%d %H-%M")
+                now += " | "
+                now = now.encode("utf-8")
+                connection.send(a + now + data)
 
             if not data:
                 self.logger.warning("There's No Data Existing!!")

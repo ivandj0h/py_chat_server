@@ -26,3 +26,8 @@ Here is the folder Structure after you download or clone this repository
 
 ### Running The Application
     ....Still on Progress 
+
+### The Screenshoot
+Here is the Screenshoot of this Application
+
+![Dashboard](screenshoot/chat_app.jpg "Screenshoot")
