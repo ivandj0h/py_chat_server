@@ -19,6 +19,11 @@ class ChatClient:
                 break
             self.logger.info(data.decode())
 
+    def send_message(self):
+        while True:
+            user_message = input()
+            self.socket.send(user_message.endcode('utf-8', 'backslashreplace'))
+
     @staticmethod
     def _setup_socket(host, port):
         sock = socket(AF_INET, SOCK_STREAM)
@@ -31,3 +36,7 @@ class ChatClient:
         logger.addHandler(logging.StreamHandler())
         logger.SetLevel(logging.DEBUG)
         return logger
+
+
+if __name__ == "__main__":
+    client = ChatClient('localhost', 4333)

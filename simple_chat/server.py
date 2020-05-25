@@ -5,7 +5,7 @@ import logging
 
 class ChatServer:
     def __init__(self, host, port):
-        self.logger = self._setup_logger()
+        self.logger = self._setup_logger(self)
         self.sock = self._setup_socket(host, port)
 
     def run(self):
@@ -29,5 +29,10 @@ class ChatServer:
     def _setup_logger(self):
         logger = logging.getLogger('chat_server')
         logger.addHandler(logging.StreamHandler())
-        logger.SetLevel(logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
         return logger
+
+
+if __name__ == "__main__":
+    server = ChatServer('localhost', 4333)
+    server.run()
