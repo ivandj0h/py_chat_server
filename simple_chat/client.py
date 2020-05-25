@@ -5,8 +5,8 @@ from threading import Thread
 
 
 class ChatClient:
-    def __init__(self):
-        self.logger = self._setup_logger()
+    def __init__(self, host, port):
+        self.logger = self._setup_logger(self)
         self.sock = self._setup_socket(host, port)
 
         thread = Thread(target=self.send_messages)
@@ -14,15 +14,15 @@ class ChatClient:
         thread.start()
 
         while True:
-            data = self.socket.recv(4096)
+            data = self.sock.recv(4096)
             if not data:
                 break
             self.logger.info(data.decode())
 
-    def send_message(self):
+    def send_messages(self):
         while True:
             user_message = input()
-            self.socket.send(user_message.endcode('utf-8', 'backslashreplace'))
+            self.sock.send(user_message.encode('utf-8', 'backslashreplace'))
 
     @staticmethod
     def _setup_socket(host, port):
@@ -34,7 +34,7 @@ class ChatClient:
     def _setup_logger(self):
         logger = logging.getLogger('chat_client')
         logger.addHandler(logging.StreamHandler())
-        logger.SetLevel(logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
         return logger
 
 
